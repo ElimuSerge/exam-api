@@ -22,8 +22,16 @@ public class CourseService {
             .orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + id));
     }
 
+    // public void deleteCourse(Long id) {
+    //     courseRepository.deleteById(id);
+    // }
+
     public void deleteCourse(Long id) {
+    if (!examRepository.existsByCourseId(id) && !courseStudentRepository.existsByCourseId(id)) {
         courseRepository.deleteById(id);
+    } else {
+        throw new IllegalStateException("Cannot delete course with existing exams or enrollments");
+    }
     }
 
     public List<Course> findByTeacher(User teacher) {

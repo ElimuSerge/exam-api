@@ -12,4 +12,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 
     @Query("SELECT g FROM Grade g WHERE g.exam.course.teacher.email = :email")
     List<Grade> findByTeacherEmail(String email);
+
+    boolean existsByExamId(Long examId);
 }

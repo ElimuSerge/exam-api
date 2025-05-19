@@ -23,8 +23,16 @@ public class ExamService {
             .orElseThrow(() -> new IllegalArgumentException("Exam not found with id: " + id));
     }
 
+    // public void deleteExam(Long id) {
+    //     examRepository.deleteById(id);
+    // }
+
     public void deleteExam(Long id) {
+    if (!gradeRepository.existsByExamId(id)) {
         examRepository.deleteById(id);
+    } else {
+        throw new IllegalStateException("Cannot delete exam with existing grades");
+    }
     }
 
     public List<Exam> findByCourse(Course course) {

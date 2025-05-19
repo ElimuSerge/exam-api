@@ -8,6 +8,8 @@
 <body>
     <div class="container">
         <h2>Tableau de bord - Administrateur</h2>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
         <a th:href="@{/admin/courses/new}" class="btn btn-primary mb-3">Créer un cours</a>
         <a th:href="@{/admin/enroll}" class="btn btn-primary mb-3">Inscrire un étudiant</a>
         <h3>Cours</h3>

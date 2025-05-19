@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,8 +37,9 @@ public class AdminController {
     }
 
     @PostMapping("/courses")
-    public String createCourse(Course course) {
+    public String createCourse(Course course, RedirectAttributes redirectAttributes) {
         courseService.saveCourse(course);
+        redirectAttributes.addFlashAttribute("success", "Cours créé avec succès !");
         return "redirect:/admin";
     }
 
@@ -50,14 +52,20 @@ public class AdminController {
     }
 
     @PostMapping("/courses/update")
-    public String updateCourse(Course course) {
+    public String updateCourse(Course course, RedirectAttributes redirectAttributes) {
         courseService.saveCourse(course);
+        redirectAttributes.addFlashAttribute("success", "Cours mis à jour avec succès !");
         return "redirect:/admin";
     }
 
     @GetMapping("/courses/delete/{id}")
-    public String deleteCourse(@PathVariable Long id) {
-        courseService.deleteCourse(id);
+    public String deleteCourse(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            courseService.deleteCourse(id);
+            redirectAttributes.addFlashAttribute("success", "Cours supprimé avec succès !");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("error", "Impossible de supprimer le cours : il est lié à des examens ou des inscriptions.");
+        }
         return "redirect:/admin";
     }
 
@@ -70,14 +78,16 @@ public class AdminController {
     }
 
     @PostMapping("/enroll")
-    public String enrollStudent(CourseStudent courseStudent) {
+    public String enrollStudent(CourseStudent courseStudent, RedirectAttributes redirectAttributes) {
         courseStudentService.enrollStudent(courseStudent);
+        redirectAttributes.addFlashAttribute("success", "Étudiant inscrit avec succès !");
         return "redirect:/admin";
     }
 
     @GetMapping("/enroll/delete/{id}")
-    public String deleteEnrollment(@PathVariable Long id) {
+    public String deleteEnrollment(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         courseStudentService.deleteEnrollment(id);
+        redirectAttributes.addFlashAttribute("success", "Étudiant désinscrit avec succès !");
         return "redirect:/admin";
     }
 }

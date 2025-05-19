@@ -4,6 +4,8 @@ import com.exam.exam_api.models.Course;
 import com.exam.exam_api.models.Exam;
 import com.exam.exam_api.models.User;
 import com.exam.exam_api.repository.ExamRepository;
+import com.exam.exam_api.repository.GradeRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExamService {
     private final ExamRepository examRepository;
+    private final GradeRepository gradeRepository;
 
     public Exam saveExam(Exam exam) {
         return examRepository.save(exam);

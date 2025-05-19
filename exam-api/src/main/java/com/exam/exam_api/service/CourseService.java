@@ -3,6 +3,9 @@ package com.exam.exam_api.service;
 import com.exam.exam_api.models.Course;
 import com.exam.exam_api.models.User;
 import com.exam.exam_api.repository.CourseRepository;
+import com.exam.exam_api.repository.CourseStudentRepository;
+import com.exam.exam_api.repository.ExamRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final ExamRepository examRepository; // Ajouté
+    private final CourseStudentRepository courseStudentRepository;
 
     public Course saveCourse(Course course) {
         return courseRepository.save(course);

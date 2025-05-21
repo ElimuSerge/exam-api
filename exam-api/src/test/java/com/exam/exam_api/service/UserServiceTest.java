@@ -17,10 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-// import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-// import static org.mockito.mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -71,10 +68,11 @@ class UserServiceTest {
 
     @Test
     void testFindByEmail_UserNotFound() {
-        when(userRepository.findByEmail("unknown@example.com")).thenReturn(null);
+        when(userRepository.findByEmail("unknown@example.com")).thenReturn(Optional.empty());
 
         assertThrows(UsernameNotFoundException.class, () -> 
             userService.findByEmail("unknown@example.com"));
+        verify(userRepository).findByEmail("unknown@example.com");
     }
 
     @Test

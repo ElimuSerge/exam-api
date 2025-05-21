@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+    public LoggingAspect() {
+        logger.info("LoggingAspect initialized");
+    }
 
     @Before("execution(* com.exam.exam_api.service.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {

@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseService {
     private final CourseRepository courseRepository;
-    private final ExamRepository examRepository; // Ajouté
+    private final ExamRepository examRepository; 
     private final CourseStudentRepository courseStudentRepository;
 
     public Course saveCourse(Course course) {
@@ -26,10 +26,6 @@ public class CourseService {
         return courseRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + id));
     }
-
-    // public void deleteCourse(Long id) {
-    //     courseRepository.deleteById(id);
-    // }
 
     public void deleteCourse(Long id) {
     if (!examRepository.existsByCourseId(id) && !courseStudentRepository.existsByCourseId(id)) {

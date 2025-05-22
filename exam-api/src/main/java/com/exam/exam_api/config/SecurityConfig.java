@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -23,13 +21,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            // Activer Basic Auth pour API
+            .httpBasic(httpBasic -> httpBasic.realmName("Exam API"))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").hasRole("STUDENT") // API pour étudiants
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/teacher/**").hasRole("TEACHER")
                 .requestMatchers("/student/**").hasRole("STUDENT")
                 .requestMatchers("/", "/login", "/register", "/logout").permitAll()
                 .anyRequest().authenticated()
             )
+            // Formulaire pour vues web
             .formLogin(form -> form
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
@@ -56,9 +58,4 @@ public class SecurityConfig {
             return user;
         };
     }
-
-    // @Bean
-    // public PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
 }

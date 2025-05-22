@@ -3,17 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Tableau de bord - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+        .header {
+            background: green;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .container {
+            width: 85%;
+            margin: 30px auto;
+        }
+        h2, h3 {
+            color: green;
+            margin-bottom: 20px;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .btn {
+            background: green;
+            color: white;
+            padding: 10px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: darkgreen;
+        }
+        .btn-warning {
+            background: orange;
+            color: white;
+        }
+        .btn-danger {
+            background: red;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: green;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">Tableau de bord - Administrateur</div>
     <div class="container">
-        <h2>Tableau de bord - Administrateur</h2>
         <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-        <a th:href="@{/admin/courses/new}" class="btn btn-primary mb-3">Créer un cours</a>
-        <a th:href="@{/admin/enroll}" class="btn btn-primary mb-3">Inscrire un étudiant</a>
+        <a th:href="@{/admin/courses/new}" class="btn"><i class="fa fa-plus"></i> Créer un cours</a>
+        <a th:href="@{/admin/enroll}" class="btn"><i class="fa fa-user-plus"></i> Inscrire un étudiant</a>
+        
         <h3>Cours</h3>
-        <table class="table">
+        <table>
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -28,14 +103,15 @@
                     <td th:text="${course.description}"></td>
                     <td th:text="${course.teacher?.firstName + ' ' + course.teacher?.lastName}"></td>
                     <td>
-                        <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}" class="btn btn-warning btn-sm">Modifier</a>
-                        <a th:href="@{/admin/courses/delete/{id}(id=${course.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer ce cours ?')">Supprimer</a>
+                        <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Modifier</a>
+                        <a th:href="@{/admin/courses/delete/{id}(id=${course.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer ce cours ?')"><i class="fa fa-trash"></i> Supprimer</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
         <h3>Inscriptions</h3>
-        <table class="table">
+        <table>
             <thead>
                 <tr>
                     <th>Étudiant</th>
@@ -48,13 +124,14 @@
                     <td th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></td>
                     <td th:text="${enrollment.course.name}"></td>
                     <td>
-                        <a th:href="@{/admin/enroll/delete/{id}(id=${enrollment.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment désinscrire cet étudiant ?')">Désinscrire</a>
+                        <a th:href="@{/admin/enroll/delete/{id}(id=${enrollment.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment désinscrire cet étudiant ?')"><i class="fa fa-sign-out-alt"></i> Désinscrire</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
         <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-secondary">Déconnexion</button>
+            <button type="submit" class="btn btn-secondary"><i class="fa fa-sign-out-alt"></i> Déconnexion</button>
         </form>
     </div>
 </body>

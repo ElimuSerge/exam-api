@@ -3,10 +3,10 @@ Cahier des Charges - Système de Gestion des Examens
 1. Contexte et Objectifs
 
 L'application web gère les examens, notes, et utilisateurs dans un établissement universitaire.
- Elle permet aux administrateurs de gérer cours et inscriptions, aux professeurs de saisir notes et examens,
-  et aux étudiants de consulter leurs résultats. 
-  
-  Objectifs :
+Elle permet aux administrateurs de gérer cours et inscriptions, aux professeurs de saisir notes et examens,
+et aux étudiants de consulter leurs résultats.
+
+Objectifs :
 
 Automatiser la gestion des examens et notes.
 Offrir des tableaux de bord par rôle (ADMIN, PROFESSEUR, ETUDIANT).
@@ -58,9 +58,9 @@ Accès sécurisé via Basic Auth.
 3. Technologies Utilisées
 
 Backend : Spring Boot 3.4.5, Spring Data JPA (Hibernate), Spring Security, Spring MVC, IOC/DI, Data Access,
- ORM,Thymeleaf,Lombok, AOP, Test/Mockito.
+ORM,Thymeleaf,Lombok, AOP, Test/Mockito.
 
-Base de données : MySQL 
+Base de données : MySQL
 
 Frontend : Thymeleaf pour vues web.
 
@@ -94,8 +94,6 @@ Problèmes :
 Rapports PDF/statistiques non implémentés.
 Calcul moyennes absent.
 
-
-
 7. Améliorations Requises
 
 Activer Basic Auth (SecurityConfig) pour API.
@@ -107,6 +105,7 @@ Implémenter calcul moyennes (GradeService).
 
 Application web fonctionnelle (vues MVC, API REST).
 Code source (GitHub recommandé).
-Documentation : Cahier des charges, guide utilisateur.
-Tests unitaires/intégration.
 
+Documentation : Cahier des charges, guide utilisateur.
+
+Tests unitaires/intégration.
